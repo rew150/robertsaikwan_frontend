@@ -46,7 +46,7 @@ function App() {
             <Breadcrumb.Item>{menu}</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background site-inner-content">
-            <LoremIpsum paragraphNo={0} />
+            <LoremIpsum paragraphNo={20} />
           </div>
           <Footer className="footer">RoBERTSaiKwan ©2021</Footer>
         </Content>
