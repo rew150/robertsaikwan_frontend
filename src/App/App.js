@@ -45,8 +45,8 @@ function App() {
             <Breadcrumb.Item>{model}</Breadcrumb.Item>
             <Breadcrumb.Item>{menu}</Breadcrumb.Item>
           </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            <LoremIpsum paragraphNo={10} />
+          <div className="site-layout-background site-inner-content">
+            <LoremIpsum paragraphNo={0} />
           </div>
           <Footer className="footer">RoBERTSaiKwan ©2021</Footer>
         </Content>
