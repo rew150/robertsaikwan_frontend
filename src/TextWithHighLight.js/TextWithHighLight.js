@@ -45,6 +45,7 @@ function TextWithHighLight({ name, ...rest }) {
         }
       } catch (error) {
         setContent('<span style="color: red;"><h3>Error fetching</h3></span>')
+        console.error(error);
       }
     })();
   }, [name])

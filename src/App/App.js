@@ -1,5 +1,5 @@
 import './App.css'
-import { Layout, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb, message } from 'antd';
 import { useEffect, useState } from 'react';
 import ModelOptions, { defaultModel } from './ModelOptions';
 import SideMenu from './SideMenu';
@@ -20,7 +20,8 @@ function App() {
         const res = await kyp.get('news').json();
         setMenus(res);
       } catch (error) {
-        alert('Unexpected error, please refresh');
+        message.error('Unexpected error, please refresh');
+        console.error(error);
       }
     })();
   },[])

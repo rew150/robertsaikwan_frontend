@@ -4,10 +4,21 @@ import './index.css';
 import 'antd/dist/antd.css';
 import App from './App/App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Admin from './Admin/Admin';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Switch>
+        <Route path='/admin'>
+          <Admin />
+        </Route>
+        <Route path='/'>
+          <App />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
