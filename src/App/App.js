@@ -1,16 +1,29 @@
 import './App.css'
 import { Layout, Breadcrumb } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModelOptions, { defaultModel } from './ModelOptions';
-import SideMenu, { defaultMenu } from './SideMenu';
-import LoremIpsum from '../utils/LoremIpsum';
+import SideMenu from './SideMenu';
+import TextWithHighLight from '../TextWithHighLight.js/TextWithHighLight';
+import { kyp } from '../utils/kyp';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [model, setModel] = useState(defaultModel);
-  const [menu, setMenu] = useState(defaultMenu);
+  const [menu, setMenu] = useState('');
+  const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await kyp.get('news').json();
+        setMenus(res);
+      } catch (error) {
+        alert('Unexpected error, please refresh');
+      }
+    })();
+  },[])
 
   function onCollapse(collapse) {
     setCollapsed(collapse);
@@ -34,7 +47,7 @@ function App() {
             }
           </b>
         </div>
-        <SideMenu onChange={onMenuChange} selectedMenu={menu} />
+        <SideMenu onChange={onMenuChange} selectedMenu={menu} menus={menus} />
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background header">
@@ -45,9 +58,7 @@ function App() {
             <Breadcrumb.Item>{model}</Breadcrumb.Item>
             <Breadcrumb.Item>{menu}</Breadcrumb.Item>
           </Breadcrumb>
-          <div className="site-layout-background site-inner-content">
-            <LoremIpsum paragraphNo={20} />
-          </div>
+          <TextWithHighLight className="site-layout-background site-inner-content" name={menu} />
           <Footer className="footer">RoBERTSaiKwan ©2021</Footer>
         </Content>
       </Layout>

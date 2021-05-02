@@ -1,23 +1,11 @@
 import { Menu } from 'antd';
 import React, { useState } from 'react';
-
-export const defaultMenu = "Page 1"
-
-const menus = [
-  {
-    name: "Page 1",
-    icon: undefined,
-  },
-  {
-    name: "Page 2",
-    icon: undefined,
-  }
-]
+import { PicLeftOutlined } from '@ant-design/icons'
 
 function SideMenu(props) {
 
-  const { onChange, selectedMenu } = props
-  const [selectedKey, setSelectedKey] = useState(defaultMenu)
+  const { onChange, selectedMenu, menus = [] } = props
+  const [selectedKey, setSelectedKey] = useState('')
 
   const handleChange = (key) => () => {
     if (onChange) {
@@ -30,10 +18,10 @@ function SideMenu(props) {
   const key = selectedMenu ? selectedMenu : selectedKey;
 
   return (
-    <Menu theme="dark" defaultSelectedKeys={defaultMenu} mode="inline" {...props} selectedKeys={key}>
+    <Menu theme="dark" defaultSelectedKeys={''} mode="inline" {...props} selectedKeys={key}>
       {
         menus.map(v => (
-          <Menu.Item key={v.name} icon={v.icon} onClick={handleChange(v.name)}>
+          <Menu.Item key={v.name} icon={<PicLeftOutlined />} onClick={handleChange(v.name)}>
             {v.name}
           </Menu.Item>
         ))
