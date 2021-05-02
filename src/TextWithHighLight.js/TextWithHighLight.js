@@ -1,5 +1,7 @@
+import './TextWithHighLight.css';
 import { useEffect, useState } from "react";
 import { kyp } from "../utils/kyp";
+import replaceBreaksWithParagraphs from '../utils/replaceBreaksWithParagraphs';
 
 function TextWithHighLight({ name, ...rest }) {
   const [content, setContent] = useState('');
@@ -13,14 +15,34 @@ function TextWithHighLight({ name, ...rest }) {
         const res = await kyp.get(`news/${encodeURIComponent(name)}`).json()
         const text = res.textbody
         const summary = res.summary
-        setContent(`
-        <p>
-          ${text}
-        </p>
-        <p>
-          ${summary}
-        </p>
-        `)
+        const pos = text.indexOf(summary)
+
+        const formattedHeader = `
+          <p class='twhl-header'>
+            ${name}
+          </p>
+        `
+        if (pos < 0) {
+          setContent(`
+            ${formattedHeader}
+            <b>News:</b>
+            ${replaceBreaksWithParagraphs(text)}
+            <b>Summarization:</b>
+            <p>
+            ${replaceBreaksWithParagraphs(summary)}
+            </p>
+          `)
+        } else {
+          const head = text.slice(0, pos);
+          const mid = `<span class="highlighted">${text.slice(pos, pos+summary.length)}</span>`;
+          const tail = text.slice(pos+summary.length);
+          console.log(head+mid+tail)
+          console.log(replaceBreaksWithParagraphs(head+mid+tail))
+          setContent(`
+            ${formattedHeader}
+            ${replaceBreaksWithParagraphs(head+mid+tail)}
+          `)
+        }
       } catch (error) {
         setContent('<span style="color: red;"><h3>Error fetching</h3></span>')
       }
