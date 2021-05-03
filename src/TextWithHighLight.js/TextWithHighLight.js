@@ -25,11 +25,13 @@ function TextWithHighLight({ name, ...rest }) {
         if (pos < 0) {
           setContent(`
             ${formattedHeader}
-            <b>News:</b>
-            ${replaceBreaksWithParagraphs(text)}
-            <b>Summarization:</b>
             <p>
+            <b>Summarization:</b><br />
             ${replaceBreaksWithParagraphs(summary)}
+            </p>
+            <p>
+            <b>Full News:</b><br />
+            ${replaceBreaksWithParagraphs(text)}
             </p>
           `)
         } else {
